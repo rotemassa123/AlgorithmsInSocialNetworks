@@ -36,3 +36,18 @@ def find_k_clique_communities(G, k):
     connected_components = nx.connected_components(overlap_graph)
     communities = get_communities_from_connected_components(k_cliques, connected_components)
     return communities
+
+edges = []
+with open('Q2_edge_data_set.txt') as f:
+  for line in f:
+    u, v = line.strip().split()
+    edges.append((u, v))
+
+G = nx.Graph()
+print("created graph!")
+G.add_edges_from(edges)
+print("added edges!")
+
+G = G.subgraph(max(nx.connected_components(G), key=len))
+print(find_k_clique_communities(G, 4))
+print("finished!")
